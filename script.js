@@ -17,6 +17,17 @@ const slots = [
 
 const grid = document.getElementById("calendar-grid");
 const yearNode = document.getElementById("year");
+const calendarDisclosure = document.getElementById("calendar-disclosure");
+
+function syncCalendarDisclosure() {
+  if (!calendarDisclosure) return;
+
+  if (window.matchMedia("(max-width: 780px)").matches) {
+    calendarDisclosure.removeAttribute("open");
+  } else {
+    calendarDisclosure.setAttribute("open", "");
+  }
+}
 
 if (grid) {
   slots.forEach(([day, label, state]) => {
@@ -30,3 +41,6 @@ if (grid) {
 if (yearNode) {
   yearNode.textContent = new Date().getFullYear();
 }
+
+syncCalendarDisclosure();
+window.addEventListener("resize", syncCalendarDisclosure);
